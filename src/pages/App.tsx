@@ -1,4 +1,4 @@
-import { useState } from "react";
+import React, { FC, useState } from "react";
 import "./App.css";
 import { Header } from "../components/Header";
 import { Body } from "../components/Body";
@@ -6,15 +6,15 @@ import { Folder } from "../components/Folder";
 import { Grid } from "@mui/material";
 import { Modal } from "../components/Modal";
 
-const App = () => {
+const App: FC = () => {
   const [open, setOpen] = useState(false);
   return (
     <div className="App">
       <Header />
       <Body>
         <Grid container>
-          <Folder name="test" />
-          <Folder name="new test" />
+          <Folder name="test" onClick={() => null} />
+          <Folder name="new test" onClick={() => null} />
           <Folder createFolder onClick={() => setOpen(true)} />
         </Grid>
       </Body>

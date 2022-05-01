@@ -1,9 +1,16 @@
+import React, { FC } from "react";
 import FolderIcon from "@mui/icons-material/Folder";
 import IconButton from "@mui/material/IconButton";
 import { Grid } from "@mui/material";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
 
-export const Folder = ({ name, createFolder, onClick }) => {
+interface FolderProps {
+  name?: string;
+  createFolder?: boolean;
+  onClick: () => void;
+}
+
+export const Folder: FC<FolderProps> = ({ name, createFolder, onClick }) => {
   return (
     <Grid item lg={1}>
       <IconButton
