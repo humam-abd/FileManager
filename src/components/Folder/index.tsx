@@ -1,18 +1,21 @@
 import React, { FC } from "react";
 import { Grid } from "@mui/material";
-import {
-  StyledCreateFolderIcon,
-  StyledFolderIcon,
-  StyledIconButton,
-} from "./index.styled";
+import { IconComponent } from "./IconComponent";
+import { StyledIconButton } from "./index.styled";
 
 interface FolderProps {
   name?: string;
   createFolder?: boolean;
   onClick: () => void;
+  edit?: boolean;
 }
 
-export const Folder: FC<FolderProps> = ({ name, createFolder, onClick }) => (
+export const Folder: FC<FolderProps> = ({
+  name,
+  createFolder,
+  onClick,
+  edit,
+}) => (
   <Grid item lg={1}>
     <StyledIconButton
       size="large"
@@ -21,14 +24,7 @@ export const Folder: FC<FolderProps> = ({ name, createFolder, onClick }) => (
       aria-label="menu"
       onClick={onClick}
     >
-      {createFolder ? (
-        <StyledCreateFolderIcon color="primary" />
-      ) : (
-        <>
-          <StyledFolderIcon color="primary" />
-          {name}
-        </>
-      )}
+      <IconComponent createFolder={createFolder} edit={edit} name={name} />
     </StyledIconButton>
   </Grid>
 );

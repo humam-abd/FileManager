@@ -1,7 +1,8 @@
 import styled from "@emotion/styled";
-import { IconButton } from "@mui/material";
+import { Box, IconButton } from "@mui/material";
 import FolderIcon from "@mui/icons-material/Folder";
 import CreateNewFolderIcon from "@mui/icons-material/CreateNewFolder";
+import EditIcon from "@mui/icons-material/Edit";
 
 export const StyledIconButton = styled(IconButton)(() => ({
   mr: 2,
@@ -18,4 +19,14 @@ export const StyledFolderIcon = styled(FolderIcon)(() => ({
 export const StyledCreateFolderIcon = styled(CreateNewFolderIcon)(() => ({
   fontSize: 60,
   opacity: 0.5,
+}));
+
+export const StyledEditFolderIcon = styled(EditIcon)(() => ({
+  fontSize: 20,
+  opacity: 0.5,
+}));
+
+export const StyledBox = styled(Box)(() => ({
+  display: "flex",
+  flexDirection: "row",
 }));

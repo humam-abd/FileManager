@@ -1,4 +1,4 @@
-import React, { ChangeEvent, FC, useState } from "react";
+import React, { ChangeEvent, FC, useEffect, useState } from "react";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";
 import TextField from "@mui/material/TextField";
@@ -9,6 +9,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { Alert } from "@mui/material";
+import { FolderDetail } from "../../domain/interfaces";
 
 interface ModalProps {
   title: string;
@@ -16,6 +17,7 @@ interface ModalProps {
   onClose: () => void;
   onSuccess: (name: string) => void;
   message?: string;
+  selectedFolder?: FolderDetail;
 }
 
 export const Modal: FC<ModalProps> = ({
@@ -24,11 +26,16 @@ export const Modal: FC<ModalProps> = ({
   onClose,
   onSuccess,
   message,
+  selectedFolder,
 }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
-  const [textInput, setTextInput] = useState("");
+  const [textInput, setTextInput] = useState(selectedFolder?.name ?? "");
   const [warning, setWarning] = useState(false);
+
+  useEffect(() => {
+    setTextInput(selectedFolder?.name ?? "");
+  }, [selectedFolder]);
 
   const handleChange = (
     event: ChangeEvent<HTMLTextAreaElement | HTMLInputElement>
