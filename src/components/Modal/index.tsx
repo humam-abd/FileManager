@@ -56,10 +56,22 @@ export const Modal: FC<ModalProps> = ({
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button autoFocus onClick={onClose}>
+        <Button
+          autoFocus
+          onClick={() => {
+            onClose();
+            setTextInput("");
+          }}
+        >
           Cancel
         </Button>
-        <Button onClick={() => onSuccess(textInput)} autoFocus>
+        <Button
+          onClick={() => {
+            onSuccess(textInput);
+            setTextInput("");
+          }}
+          autoFocus
+        >
           Ok
         </Button>
       </DialogActions>

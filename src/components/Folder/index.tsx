@@ -27,13 +27,11 @@ export const Folder: FC<FolderProps> = ({ name, createFolder, onClick }) => {
         }}
       >
         {createFolder ? (
-          <>
-            <CreateNewFolderIcon
-              color="primary"
-              sx={{ fontSize: 60, opacity: 0.5 }}
-              onClick={onClick}
-            />
-          </>
+          <CreateNewFolderIcon
+            color="primary"
+            sx={{ fontSize: 60, opacity: 0.5 }}
+            onClick={onClick}
+          />
         ) : (
           <>
             <FolderIcon
