@@ -28,6 +28,11 @@ export const Modal: FC<ModalProps> = ({
   const fullScreen = useMediaQuery(theme.breakpoints.down("md"));
   const [textInput, setTextInput] = useState("");
 
+  const handleAction = (action: () => void, value: string) => () => {
+    action();
+    setTextInput(value);
+  };
+
   return (
     <Dialog
       fullScreen={fullScreen}
@@ -47,29 +52,20 @@ export const Modal: FC<ModalProps> = ({
             type="email"
             fullWidth
             variant="standard"
+            value={textInput}
             onChange={(e) => {
               const { value } = e.target;
               setTextInput(value);
             }}
-            value={textInput}
           />
         </DialogContentText>
       </DialogContent>
       <DialogActions>
-        <Button
-          autoFocus
-          onClick={() => {
-            onClose();
-            setTextInput("");
-          }}
-        >
+        <Button autoFocus onClick={handleAction(onClose, "")}>
           Cancel
         </Button>
         <Button
-          onClick={() => {
-            onSuccess(textInput);
-            setTextInput("");
-          }}
+          onClick={handleAction(() => onSuccess(textInput), "")}
           autoFocus
         >
           Ok

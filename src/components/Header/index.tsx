@@ -1,19 +1,17 @@
 import React, { FC } from "react";
 import AppBar from "@mui/material/AppBar";
-import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
 import Typography from "@mui/material/Typography";
+import { StyledHeader } from "./index.styled";
 
-export const Header: FC = () => {
-  return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar position="static">
-        <Toolbar>
-          <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-            Folder Management
-          </Typography>
-        </Toolbar>
-      </AppBar>
-    </Box>
-  );
-};
+export const Header: FC = () => (
+  <StyledHeader>
+    <AppBar position="static">
+      <Toolbar>
+        <Typography variant="h6" component="div">
+          Folder Management
+        </Typography>
+      </Toolbar>
+    </AppBar>
+  </StyledHeader>
+);
