@@ -5,13 +5,13 @@ import React, {
   createContext,
   FC,
 } from "react";
-import { Breadcrumb, FolderDetail } from "../interfaces";
+import { Breadcrumb, AssetDetail } from "../interfaces";
 
 interface FolderContextProps {
-  folderId: number;
-  setFolderId: (id: number) => void;
-  folders: Array<FolderDetail>;
-  setFolders: (value: Array<FolderDetail>) => void;
+  uId: number;
+  setUId: (id: number) => void;
+  assets: Array<AssetDetail>;
+  setAssets: (value: Array<AssetDetail>) => void;
   breadcrumbs: Array<Breadcrumb>;
   setBreadcrumbs: (breadcrumbs: Array<Breadcrumb>) => void;
   children?: ReactNode;
@@ -20,10 +20,10 @@ interface FolderContextProps {
 }
 
 export const initialContextValues: FolderContextProps = {
-  folderId: 1,
-  setFolderId: () => null,
-  folders: [],
-  setFolders: () => null,
+  uId: 1,
+  setUId: () => null,
+  assets: [],
+  setAssets: () => null,
   breadcrumbs: [{ id: 0, name: `Home` }],
   setBreadcrumbs: () => null,
   selectedFolderId: 0,
@@ -33,8 +33,8 @@ export const initialContextValues: FolderContextProps = {
 const FolderContext = createContext<FolderContextProps>(initialContextValues);
 
 export const FolderContextProvider: FC<FolderContextProps> = ({ children }) => {
-  const [folderId, setFolderId] = useState(1);
-  const [folders, setFolders] = useState<Array<FolderDetail>>([]);
+  const [uId, setUId] = useState(1);
+  const [assets, setAssets] = useState<Array<AssetDetail>>([]);
   const [breadcrumbs, setBreadcrumbs] = useState<Array<Breadcrumb>>([
     { id: 0, name: `Home` },
   ]);
@@ -43,10 +43,10 @@ export const FolderContextProvider: FC<FolderContextProps> = ({ children }) => {
   return (
     <FolderContext.Provider
       value={{
-        folderId,
-        setFolderId,
-        folders,
-        setFolders,
+        uId,
+        setUId,
+        assets,
+        setAssets,
         breadcrumbs,
         setBreadcrumbs,
         selectedFolderId,

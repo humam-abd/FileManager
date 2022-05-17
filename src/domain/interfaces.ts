@@ -1,7 +1,8 @@
-export interface FolderDetail {
+export interface AssetDetail {
   id: number;
   name: string;
   parentNodeId?: number;
+  isFile?: boolean;
 }
 
 export interface Breadcrumb {

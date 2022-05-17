@@ -9,7 +9,7 @@ import DialogTitle from "@mui/material/DialogTitle";
 import useMediaQuery from "@mui/material/useMediaQuery";
 import { useTheme } from "@mui/material/styles";
 import { Alert } from "@mui/material";
-import { FolderDetail } from "../../domain/interfaces";
+import { AssetDetail } from "../../domain/interfaces";
 
 interface ModalProps {
   title: string;
@@ -17,7 +17,7 @@ interface ModalProps {
   onClose: () => void;
   onSuccess: (name: string) => void;
   message?: string;
-  selectedFolder?: FolderDetail;
+  selectedFolder?: AssetDetail;
 }
 
 export const Modal: FC<ModalProps> = ({

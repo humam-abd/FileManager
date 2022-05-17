@@ -5,19 +5,20 @@ import { Folder } from "../Folder";
 import { Header } from "../Header";
 import { Modal } from "../Modal";
 import { useFolderContext } from "../../domain/context/FolderContext";
-import { FolderDetail } from "../../domain/interfaces";
+import { AssetDetail } from "../../domain/interfaces";
 import { StyledBox } from "./index.styled";
+import { FileComponent } from "../FileComponent";
 
 export const Main: FC = () => {
   const [open, setOpen] = useState(false);
   const [edit, setEdit] = useState(false);
-  const [selectedFolder, setSelectedFolder] = useState<FolderDetail>();
+  const [selectedFolder, setSelectedFolder] = useState<AssetDetail>();
 
   const {
-    folders,
-    setFolders,
-    folderId,
-    setFolderId,
+    assets,
+    setAssets,
+    uId,
+    setUId,
     setBreadcrumbs,
     breadcrumbs,
     selectedFolderId,
@@ -27,40 +28,54 @@ export const Main: FC = () => {
   const handleNameChange = (value: string) => {
     setOpen(false);
     if (edit) {
-      const updatedFolderList = folders.map((item) => {
+      const updatedAssetList = assets.map((item) => {
         if (item.id === selectedFolder?.id) {
           item.name = value;
         }
         return item;
       });
-      setFolders(updatedFolderList);
+      setAssets(updatedAssetList);
     } else {
-      const updatedFolders = [
-        ...folders,
-        { id: folderId, name: value, parentNodeId: selectedFolderId },
+      const updatedAssets = [
+        ...assets,
+        { id: uId, name: value, parentNodeId: selectedFolderId },
       ];
 
-      setFolders(updatedFolders);
-      setFolderId(folderId + 1);
+      setAssets(updatedAssets);
+      setUId(uId + 1);
     }
   };
 
-  const handleFolderClick = (folder: FolderDetail) => () => {
+  const handleFolderClick = (asset: AssetDetail) => () => {
     if (edit) {
-      setSelectedFolder(folder);
+      setSelectedFolder(asset);
       setOpen(true);
     } else {
       const updatedBreadcrumbs = [
         ...breadcrumbs,
-        { id: folder.id, name: folder.name },
+        { id: asset.id, name: asset.name },
       ];
 
       setBreadcrumbs(updatedBreadcrumbs);
-      setSelectedFolderId?.(folder.id);
+      setSelectedFolderId?.(asset.id);
     }
   };
 
-  const filteredFolders = folders.filter(
+  const onFileUpload = (filename: string) => {
+    const updatedAssetList = [
+      ...assets,
+      {
+        id: uId,
+        name: filename,
+        parentNodeId: selectedFolderId,
+        isFile: true,
+      },
+    ];
+    setAssets(updatedAssetList);
+    setUId(uId + 1);
+  };
+
+  const filteredAssets = assets.filter(
     (item) => item.parentNodeId === selectedFolderId
   );
 
@@ -74,14 +89,23 @@ export const Main: FC = () => {
           </Button>
         </StyledBox>
         <Grid container>
-          {filteredFolders?.map((folder) => (
-            <Folder
-              key={folder.id}
-              name={folder.name}
-              onClick={handleFolderClick(folder)}
-              edit={edit}
-            />
-          ))}
+          {filteredAssets?.map((asset) => {
+            if (asset.isFile) {
+              const formattedNameArray = asset.name.split("\\");
+              const formattedName =
+                formattedNameArray[formattedNameArray.length - 1];
+              return <FileComponent key={asset.id} name={formattedName} />;
+            }
+            return (
+              <Folder
+                key={asset.id}
+                name={asset.name}
+                onClick={handleFolderClick(asset)}
+                edit={edit}
+              />
+            );
+          })}
+          <FileComponent fileUpload onChange={onFileUpload} />
           <Folder createFolder onClick={() => setOpen(true)} />
         </Grid>
       </Body>
