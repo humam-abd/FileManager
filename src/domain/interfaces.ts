@@ -7,7 +7,7 @@ export interface AssetDetail {
 
 export interface Breadcrumb {
   id: number;
-  name: string;
+  name: string | JSX.Element;
 }
 
 export type ColorProps =

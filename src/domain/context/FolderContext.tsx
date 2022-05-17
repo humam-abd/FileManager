@@ -5,6 +5,7 @@ import React, {
   createContext,
   FC,
 } from "react";
+import HomeIcon from "@mui/icons-material/Home";
 import { Breadcrumb, AssetDetail } from "../interfaces";
 
 interface FolderContextProps {
@@ -36,7 +37,7 @@ export const FolderContextProvider: FC<FolderContextProps> = ({ children }) => {
   const [uId, setUId] = useState(1);
   const [assets, setAssets] = useState<Array<AssetDetail>>([]);
   const [breadcrumbs, setBreadcrumbs] = useState<Array<Breadcrumb>>([
-    { id: 0, name: `Home` },
+    { id: 0, name: <HomeIcon /> },
   ]);
   const [selectedFolderId, setSelectedFolderId] = useState(0);
 
