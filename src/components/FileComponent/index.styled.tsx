@@ -10,3 +10,7 @@ export const StyledUploadFileIcon = styled(FileUploadIcon)(() => ({
   fontSize: 60,
   opacity: 0.5,
 }));
+
+export const StyledInput = styled("input")({
+  display: "none",
+});

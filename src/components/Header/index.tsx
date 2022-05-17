@@ -9,7 +9,7 @@ export const Header: FC = () => (
     <AppBar position="static">
       <Toolbar>
         <Typography variant="h6" component="div">
-          Folder Management
+          File Manager
         </Typography>
       </Toolbar>
     </AppBar>

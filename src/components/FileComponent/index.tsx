@@ -1,8 +1,12 @@
 import React, { FC } from "react";
-import { Grid, styled } from "@mui/material";
+import { Grid } from "@mui/material";
 import { StyledIconButton } from "../Folder/index.styled";
 import { ColorProps } from "../../domain/interfaces";
-import { StyledFileIcon, StyledUploadFileIcon } from "./index.styled";
+import {
+  StyledFileIcon,
+  StyledInput,
+  StyledUploadFileIcon,
+} from "./index.styled";
 
 interface FileComponentProps {
   fileUpload?: boolean;
@@ -15,10 +19,6 @@ export const FileComponent: FC<FileComponentProps> = ({
   onChange,
   name,
 }) => {
-  const Input = styled("input")({
-    display: "none",
-  });
-
   const iconProps = {
     color: "primary" as ColorProps,
   };
@@ -33,7 +33,7 @@ export const FileComponent: FC<FileComponentProps> = ({
       >
         {fileUpload ? (
           <label htmlFor="contained-button-file">
-            <Input
+            <StyledInput
               multiple
               type="file"
               id="contained-button-file"

@@ -8,6 +8,7 @@ import { useFolderContext } from "../../domain/context/FolderContext";
 import { AssetDetail } from "../../domain/interfaces";
 import { StyledBox } from "./index.styled";
 import { FileComponent } from "../FileComponent";
+import { onFileUpload, onFolderClick, onNameChange } from "./helpers";
 
 export const Main: FC = () => {
   const [open, setOpen] = useState(false);
@@ -25,55 +26,32 @@ export const Main: FC = () => {
     setSelectedFolderId,
   } = useFolderContext();
 
-  const handleNameChange = (value: string) => {
-    setOpen(false);
-    if (edit) {
-      const updatedAssetList = assets.map((item) => {
-        if (item.id === selectedFolder?.id) {
-          item.name = value;
-        }
-        return item;
-      });
-      setAssets(updatedAssetList);
-    } else {
-      const updatedAssets = [
-        ...assets,
-        { id: uId, name: value, parentNodeId: selectedFolderId },
-      ];
+  const handleNameChange = (name: string) =>
+    onNameChange(
+      name,
+      setOpen,
+      edit,
+      assets,
+      setAssets,
+      uId,
+      setUId,
+      selectedFolderId,
+      selectedFolder
+    );
 
-      setAssets(updatedAssets);
-      setUId(uId + 1);
-    }
-  };
+  const handleFolderClick = (asset: AssetDetail) =>
+    onFolderClick(
+      asset,
+      edit,
+      setSelectedFolder,
+      setOpen,
+      breadcrumbs,
+      setBreadcrumbs,
+      setSelectedFolderId
+    );
 
-  const handleFolderClick = (asset: AssetDetail) => () => {
-    if (edit) {
-      setSelectedFolder(asset);
-      setOpen(true);
-    } else {
-      const updatedBreadcrumbs = [
-        ...breadcrumbs,
-        { id: asset.id, name: asset.name },
-      ];
-
-      setBreadcrumbs(updatedBreadcrumbs);
-      setSelectedFolderId?.(asset.id);
-    }
-  };
-
-  const onFileUpload = (filename: string) => {
-    const updatedAssetList = [
-      ...assets,
-      {
-        id: uId,
-        name: filename,
-        parentNodeId: selectedFolderId,
-        isFile: true,
-      },
-    ];
-    setAssets(updatedAssetList);
-    setUId(uId + 1);
-  };
+  const handleFileUpload = (filename: string) =>
+    onFileUpload(filename, assets, uId, setAssets, setUId, selectedFolderId);
 
   const filteredAssets = assets.filter(
     (item) => item.parentNodeId === selectedFolderId
@@ -105,7 +83,7 @@ export const Main: FC = () => {
               />
             );
           })}
-          <FileComponent fileUpload onChange={onFileUpload} />
+          <FileComponent fileUpload onChange={handleFileUpload} />
           <Folder createFolder onClick={() => setOpen(true)} />
         </Grid>
       </Body>
